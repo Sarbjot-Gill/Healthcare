@@ -1,0 +1,29 @@
+.buttonn{
+    background-color: #00796B;
+    width: 100px;
+    border-radius: 100px;
+
+}
+.buttonnn{
+    background-color: transparent;
+    width: 100px;
+    border-radius: 100px;
+    color:#00796B;
+    border: transparent;
+    font-weight: 500;
+}
+.txt{
+    color:   #00796B !important;
+    font-weight: 500;
+}
+.txtt{
+    color:    #044941 !important;
+    font-weight: 500;
+    font-size: 30px;
+}
+.buttonn:hover{
+    background-color: #044941;
+}
+.buttonnn:hover{
+    background-color: #044941;
+}
