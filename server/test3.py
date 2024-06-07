@@ -35,4 +35,4 @@ if __name__ == "__main__":
     if results:
         print(results)
     else:
-        print(f"No diseases found with symptoms '{', '.join(symptoms)}'.")
+        print("None")

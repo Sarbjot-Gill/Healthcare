@@ -8,9 +8,14 @@ export default function Diseases() {
   const [load , setLoad] = useState(false)
   const handleClick = async() => {
     await axios.post("http://localhost:3000/sym" , {data: input}).then((res) => {
+      console.log(res)
+      if(res.data[0].length !== 0){
       setData(res.data)
       setLoad(true)
       console.log(data)
+      }else{
+        alert("No record found")
+      }
     })
   }
   return (
@@ -70,7 +75,11 @@ export default function Diseases() {
         </ul>
         </div>
         </div>
-      </div></> : <></>}
+      </div></> : <>
+      <center>
+      <img src="https://media.licdn.com/dms/image/C5612AQFW9luBdJF6Gw/article-cover_image-shrink_600_2000/0/1648534888372?e=1723075200&v=beta&t=qhlum-HdzxqQTzfFVRK3Tjw0ytofp5uifJDZ3l5we5Y" style={{height:"60vh" , width:"100%" }}></img>
+      </center>
+      </>}
     </div>
   );
 }

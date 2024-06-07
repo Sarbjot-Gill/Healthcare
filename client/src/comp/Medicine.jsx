@@ -16,10 +16,16 @@ export default function Medicine() {
         let arr = {sym : input}
       await axios.post("http://localhost:3000/ex" , arr).then((res) => {
         console.log(res.data)
+        if(res.data[0].length !== 0){
         setData(res.data)
         setIndex(res.data[0])
         setLoad(true)
         setLoading(false)
+      }else{
+        alert("no record found")
+        setLoad(true)
+      setLoading(false)
+      }
       })
     }
   return (
@@ -28,7 +34,7 @@ export default function Medicine() {
         <Navbarr />
       </div>
       <center>
-        <div className="card">
+        <div className="card shadow">
           <div className="card-body" style={{ marginTop: "70px", marginBottom:"70px" }}>
             <input
               type="text"
@@ -62,7 +68,6 @@ export default function Medicine() {
         </center>
       {load ? <>
       {index.map((e,i) => {
-        console.log(data[2][i].Symptom_5)
         return(
             <>
 
@@ -147,6 +152,9 @@ export default function Medicine() {
       {/* <IconContext.Provider value={{style : {height:"200px" , width:"200px"}}}>
       <FaHandHoldingMedical />
       </IconContext.Provider> */}
+      <center>
+      <img src="https://media.licdn.com/dms/image/C5612AQFW9luBdJF6Gw/article-cover_image-shrink_600_2000/0/1648534888372?e=1723075200&v=beta&t=qhlum-HdzxqQTzfFVRK3Tjw0ytofp5uifJDZ3l5we5Y" style={{height:"60vh" , width:"100%" }}></img>
+      </center>
        </>}
      
       </>}

@@ -16,6 +16,15 @@ const user = new mongoose.Schema({
     pass:String,
     email:String
 })
+const appointment = new mongoose.Schema({
+  doctor: String,
+  date: String,
+  time: String,
+  name: String,
+  email: String,
+  phone: String,
+  user:String
+})
 const sym = new mongoose.Schema({
   Disease : String,
   Symptom_1 : String,
@@ -48,11 +57,13 @@ const prev = new mongoose.Schema({
   Precaution_4 : String,
 })
 const userdata = mongoose.model("user" , user)
+const appointmentdata = mongoose.model("appointment" , appointment)
 const symData = mongoose.model("sym" , sym)
 const decsdata = mongoose.model("desc" ,decs)
 const prevdata = mongoose.model("prev" ,prev)
 const saltRounds = 10;
 let loginState = false;
+let loginEmail = ""
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -83,6 +94,7 @@ app.post("/log" , (req,res) =>{
                 if(result === true){
                 res.json("success")
                 loginState = true
+                loginEmail = user;
                 }
                 else{
                     res.json("pass not same")
@@ -99,8 +111,13 @@ app.post("/checkuser", (req,res) =>{
     }
    
   })
+  app.get("/getmail" , (req,res) => {
+    res.json(loginEmail)
+  })
   app.get("/logout" , (req,res) =>{
     loginState = false
+    loginEmail = ""
+    res.json("success")
   })
   app.post("/ex" ,(req,res) => {
     var dataToSend;
@@ -111,6 +128,7 @@ app.post("/checkuser", (req,res) =>{
     });
     python.on('close', (code) => {
     // console.log(`child process close all stdio with code ${code}`);
+    
     let sl = dataToSend.slice(1 , dataToSend.length-3 )
     let arr = []
     let str = ""
@@ -127,36 +145,10 @@ app.post("/checkuser", (req,res) =>{
         str = str + sl[i]
       }
     }
-    // let data = Array.from(dataToSend)
     const decs = decsdata.find({Disease : arr})
     const prev = prevdata.find({Disease : arr})
     const sym = symData.find({Disease : arr})
     Promise.all([decs , prev , sym]).then((e) => {
-      let dec = e[0]
-      let pre = e[1]
-      let sy = e[2]
-      let mainArr = []
-      // let mainArr = dec.map(function(e,i) {
-      //   return e + pre[i] + sy[i]
-      // })
-      sy.map((z,i) => {
-        mainArr.push(z)
-      })
-      // dec.map((x,i) => {
-      //   Object.assign(mainArr[i] , {"decs" : x.Description})
-      //   // mainArr[i].decs = x.Description
-      // })
-      // pre.map((y,i) => {
-      //   mainArr[i].pre1 = y.Precaution_1
-      //   mainArr[i].pre2 = y.Precaution_2
-      //   mainArr[i].pre3 = y.Precaution_3
-      //   mainArr[i].pre4 = y.Precaution_4
-      // })
-      // for(let i = 0;i < mainArr.length; i++){
-      //   // Object.assign(mainArr[i] , {"decs" : dec[i].Description})
-      //   mainArr[i]["pre1"] = pre[i].Precaution_1
-      // }
-     
       res.json(e)
     })
     });
@@ -167,11 +159,31 @@ app.post("/checkuser", (req,res) =>{
     const prev = prevdata.find({Disease : req.body.data})
     const sym = symData.find({Disease : req.body.data})
     Promise.all([decs , prev , sym]).then((e) => {  
-      res.json(e)
-    })
+      console.log(e)
+      
+      res.json(e)}
+     
+    )
     
   })
-  
+
+  app.post("/book" , (req,res) => {
+    let arr = req.body
+    arr.user = loginEmail
+    let dataa = new appointmentdata(arr)
+    dataa.save().then((e) =>{
+      res.json("success")
+    })
+  })
+  app.post("/bookhis" , (req,res)=>{
+    appointmentdata.find({user : loginEmail}).then((e)=>{
+      if(e !== null){
+      res.json(e)
+    }else{
+      res.json(false)
+    }
+    })
+  })
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
