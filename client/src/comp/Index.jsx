@@ -56,13 +56,13 @@ export default function Index() {
         >
           <img style={{ height: "500px", width: "400px" }} src={immg}></img>
           <img
-            src={immgg}
+            src="https://images.pexels.com/photos/47073/nutrient-additives-medicine-pills-bless-you-47073.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             style={{
               position: "absolute",
-              height: "200px",
-              width: "500px",
-              bottom: "-5vh",
-              right: "350px",
+              height: "250px",
+              width: "400px",
+              bottom: "-10vh",
+              right: "500px",
             }}
           ></img>
         </Col>

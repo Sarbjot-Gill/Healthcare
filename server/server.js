@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost:27017/Healthcare')
 const user = new mongoose.Schema({
     user:String,
     pass:String,
-    email:String
+    email:String,
 })
 const appointment = new mongoose.Schema({
   doctor: String,
@@ -56,11 +56,37 @@ const prev = new mongoose.Schema({
   Precaution_3 : String,
   Precaution_4 : String,
 })
+const med = new mongoose.Schema({
+    name: String,
+    Manufacturer: String,
+    Type: String,
+    img: String,
+    desc: String,
+    uses: String,
+    directions: String,
+    "Side Effects": Array,
+    rs: String
+  
+})
+const order = new mongoose.Schema({
+  first: String,
+  last: String,
+  address: String,
+  house: String,
+  city: String,
+  state: String,
+  zip:String,
+  phone:String,
+  user:String
+})
+
 const userdata = mongoose.model("user" , user)
 const appointmentdata = mongoose.model("appointment" , appointment)
 const symData = mongoose.model("sym" , sym)
 const decsdata = mongoose.model("desc" ,decs)
 const prevdata = mongoose.model("prev" ,prev)
+const medData = mongoose.model("med" , med)
+const orderData = mongoose.model("order" , order)
 const saltRounds = 10;
 let loginState = false;
 let loginEmail = ""
@@ -182,6 +208,19 @@ app.post("/checkuser", (req,res) =>{
     }else{
       res.json(false)
     }
+    })
+  })
+  app.get("/meddata" , (req,res) => {
+    medData.find().then((e) => {
+      res.json(e)
+    })
+  })
+  app.post("/payment" , (req,res) => {
+    let data = req.body
+    data.user = loginEmail
+    let dataa = new orderData(data)
+    dataa.save().then(() =>{
+      res.json("success")
     })
   })
 app.listen(port, () => {

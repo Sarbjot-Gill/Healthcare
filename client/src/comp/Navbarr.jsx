@@ -13,7 +13,6 @@ export default function Navbarr() {
     }
   useEffect(()=> {
     axios.get("http://localhost:3000/getmail").then((res) => {
-      console.log(res)
       setMail(res.data)
     })
   } ,[])
@@ -24,7 +23,7 @@ export default function Navbarr() {
         <Navbar.Brand className={Style.txtt}>Healthcare</Navbar.Brand>
         </Link>
         <Nav >
-            <Nav.Link>  <Link to="/home" className={Style.txt}>Home</Link> </Nav.Link>
+            <Nav.Link>  <Link to="/store" className={Style.txt}>Home</Link> </Nav.Link>
              <Nav.Link> <Link to="/di" className={Style.txt}>Disease </Link></Nav.Link>
             <Nav.Link><Link to="/sym" className={Style.txt}> Symptoms </Link></Nav.Link>
          <Nav.Link><Link to="/book" className={Style.txt}>Appointment </Link></Nav.Link>
@@ -36,7 +35,7 @@ export default function Navbarr() {
             <Button className={` ${Style.buttonn} mx-2`}>Sign up</Button>
             </Link>
             </> : <>
-            <DropdownButton title= {mail}>
+            <DropdownButton variant="light" title= {mail}>
               <Dropdown.Item>{mail}</Dropdown.Item>
               <Dropdown.Item> <Link to="/bookhis" style={{textDecoration:"none" , color:"black"}}>Appoinment History </Link></Dropdown.Item>
               <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
