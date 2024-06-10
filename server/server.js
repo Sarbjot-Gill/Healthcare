@@ -77,7 +77,9 @@ const order = new mongoose.Schema({
   state: String,
   zip:String,
   phone:String,
-  user:String
+  user:String,
+  pname:String,
+  price:String
 })
 
 const userdata = mongoose.model("user" , user)
@@ -203,6 +205,15 @@ app.post("/checkuser", (req,res) =>{
   })
   app.post("/bookhis" , (req,res)=>{
     appointmentdata.find({user : loginEmail}).then((e)=>{
+      if(e !== null){
+      res.json(e)
+    }else{
+      res.json(false)
+    }
+    })
+  })
+  app.post("/orderhis" , (req,res)=>{
+    orderData.find({user : loginEmail}).then((e)=>{
       if(e !== null){
       res.json(e)
     }else{

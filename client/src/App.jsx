@@ -11,6 +11,7 @@ import Medicines from "./comp/Medicines";
 import Store from "./comp/Store";
 import Checkout from "./comp/Checkout";
 import Success from "./comp/Success";
+import OrderHistory from "./comp/OrderHistory";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
     <Route path="/checkout" element={<Checkout />} />
     <Route path="/bookhis" element={<AppointmentHistory />} />
     <Route path="/success" element={<Success />} />
+    <Route path="/orderhis" element={<OrderHistory />} />
     </Route>
   </Routes>
   </BrowserRouter>

@@ -38,6 +38,7 @@ export default function Navbarr() {
             <DropdownButton variant="light" title= {mail}>
               <Dropdown.Item>{mail}</Dropdown.Item>
               <Dropdown.Item> <Link to="/bookhis" style={{textDecoration:"none" , color:"black"}}>Appoinment History </Link></Dropdown.Item>
+              <Dropdown.Item> <Link to="/orderhis" style={{textDecoration:"none" , color:"black"}}>Order History </Link></Dropdown.Item>
               <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
             </DropdownButton>
             </>}

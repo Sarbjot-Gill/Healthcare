@@ -7,6 +7,8 @@ import GooglePayButton from "@google-pay/button-react"
 import { useState } from "react";
 import axios from "axios";
 export default function Checkout() {
+  let loction = useLocation()
+  let data = loction.state
   const [formData, setFormData] = useState({
     first: "",
     last: "",
@@ -15,7 +17,9 @@ export default function Checkout() {
     city: "",
     state: "",
     zip:"",
-    phone:""
+    phone:"",
+    pname:data.name,
+    price:data.rs
   });
  
 
@@ -24,8 +28,7 @@ export default function Checkout() {
     setFormData({ ...formData, [name]: value });
   };
   let navigate = useNavigate()
-  let loction = useLocation()
-  let data = loction.state
+
 
   
   return (
