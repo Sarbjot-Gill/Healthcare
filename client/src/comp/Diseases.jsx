@@ -22,7 +22,7 @@ export default function Diseases() {
       });
   };
   return (
-    <div style={{width:"100%"}}>
+    <div>
       <Navbarr />
 
       <div className="card" style={{ height: "280px", background: "#00796B" }}>
@@ -220,17 +220,17 @@ export default function Diseases() {
       ) : (
         <>
           <Row>
-            <Col xs={7}>
+            <Col>
               <div
                 className="card"
                 style={{
                   marginTop: "30px",
                   marginLeft: "30px",
-                  width: "100%",
-                  height: "100%",
-                  background:
-                    "url(https://cdn.pixabay.com/photo/2014/10/11/07/21/bokeh-484260_960_720.jpg)",
-                 backgroundSize:"100%",
+                  width: "650px",
+                  height: "300px",
+                  backgroundImage:
+                    "url(https://assets.mayoclinic.org/content/dam/media/global/images/2023/06/26/symptom-checker-ss-1121602298-416x304.jpg)",
+                  backgroundSize: "100%",
                   backgroundRepeat: "no-repeat",
                 }}
               >
