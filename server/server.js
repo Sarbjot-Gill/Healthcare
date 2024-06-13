@@ -5,7 +5,11 @@ var bodyparser = require("body-parser");
 const bcrypt = require('bcrypt');
 const {spawn} = require("child_process");
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000;
+const nodemailer = require("nodemailer");
+const bodyParser = require("body-parser");
+require('dotenv').config();
+
 app.use(cors())
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
@@ -237,3 +241,79 @@ app.post("/checkuser", (req,res) =>{
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+
+
+
+//new----------------------------------------------------------------------------------------------
+
+app.use(bodyParser.json());
+app.use(cors());
+
+// Replace with your email and password (Use App Password for Gmail if 2FA enabled)
+const EMAIL_USER = "farziid1009@gmail.com";
+const EMAIL_PASS = "wsgs lfqd bure kjny"; // Use App Password here
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: EMAIL_USER,
+    pass: EMAIL_PASS,
+  },
+});
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("Error with transporter configuration: ", error);
+  } else {
+    console.log("Server is ready to take our messages");
+  }
+});
+
+// Example existing route
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+// Route to handle appointment booking
+app.post("/book", (req, res) => {
+  // Handle appointment booking logic here (e.g., save to database)
+  res.status(200).send("Appointment booked successfully");
+});
+
+// Route to handle sending email
+app.post("/send-email", (req, res) => {
+  const { email, name, doctor, date, time } = req.body;
+
+  const mailOptions = {
+    from: EMAIL_USER,
+    to: email,
+    subject: "Appointment Confirmation",
+    text: `Dear ${name},\n\nYour appointment with ${doctor} on ${date} at ${time} has been confirmed.\n\nThank you!`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending email: ", error);
+      return res.status(500).send(error.toString());
+    }
+    res.status(200).send("Email sent: " + info.response);
+  });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
+
+/*app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+*/
+
+
+/*app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});*/
+//2H9xpZL1IJBJ7bmy
