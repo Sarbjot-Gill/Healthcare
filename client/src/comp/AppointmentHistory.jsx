@@ -26,6 +26,7 @@ export default function AppointmentHistory() {
               <th className="px-4 py-2" >Time</th>
               <th className="px-4 py-2" >Email</th>
               <th className="px-4 py-2" >Phone</th>
+              <th className="px-4 py-2">Status</th>
             </thead>
             {data.map((e)=> {
               return(
@@ -37,6 +38,8 @@ export default function AppointmentHistory() {
                   <td className="px-4 py-2">{e.time}</td>
                   <td className="px-4 py-2">{e.email}</td>
                   <td className="px-4 py-2">{e.phone}</td>
+                  <td className="px-4 py-2">{e.status==="upcoming" ? <p style={{borderRadius:"10px" , backgroundColor:"green" , color:"white"}}>Upcoming</p> : 
+                     <p style={{borderRadius:"10px" , backgroundColor:"red" , color:"white"}}>Cancelled</p>}</td>
                 </tr>
                 </>
               )
