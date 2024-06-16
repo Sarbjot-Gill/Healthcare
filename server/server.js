@@ -27,7 +27,8 @@ const appointment = new mongoose.Schema({
   name: String,
   email: String,
   phone: String,
-  user:String
+  user:String,
+  status : String
 })
 const sym = new mongoose.Schema({
   Disease : String,
@@ -86,6 +87,11 @@ const order = new mongoose.Schema({
   price:String
 })
 
+const doc = new mongoose.Schema({
+  user:String,
+  pass:String,
+})
+
 const userdata = mongoose.model("user" , user)
 const appointmentdata = mongoose.model("appointment" , appointment)
 const symData = mongoose.model("sym" , sym)
@@ -93,9 +99,11 @@ const decsdata = mongoose.model("desc" ,decs)
 const prevdata = mongoose.model("prev" ,prev)
 const medData = mongoose.model("med" , med)
 const orderData = mongoose.model("order" , order)
+const docData = mongoose.model("doc" , doc)
 const saltRounds = 10;
 let loginState = false;
 let loginEmail = ""
+let doctor = ""
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -238,6 +246,35 @@ app.post("/checkuser", (req,res) =>{
       res.json("success")
     })
   })
+
+  app.post("/docsign" , (req,res) =>{
+    let {user , pass} = req.body
+    docData.findOne({user : user}).then((e) =>{
+     
+        if(e === null){
+            res.json("fail")
+        }else{
+          if(e.pass === pass){
+            res.json("success")
+            doctor = user
+          }else{
+            res.json("pass not same")
+        }
+        }
+    })
+})
+
+app.post("/dochis" , (req,res)=>{
+
+  appointmentdata.find({doctor : doctor}).then((e)=>{
+    if(e !== null){
+    res.json(e)
+  }else{
+    res.json(false)
+  }
+  })
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
@@ -271,8 +308,24 @@ transporter.verify((error, success) => {
 });
 
 // Example existing route
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+app.post("/appointdel", (req, res) => {
+  appointmentdata.findOneAndUpdate(req.body ,{status : "Cancel"}).then((e) => {
+    res.json("success")
+    const mailOptions = {
+      from: EMAIL_USER,
+      to: e.email,
+      subject: "Appointment Cancelled",
+      text: `Dear ${e.user},\n\nYour appointment with ${e.doctor} on ${e.date} at ${e.time} has been Cancelled.\n\nThank you!`,
+    };
+  
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email: ", error);
+        return res.status(500).send(error.toString());
+      }
+      res.status(200).send("Email sent: " + info.response);
+    });
+  })
 });
 
 // Route to handle appointment booking

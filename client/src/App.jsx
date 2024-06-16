@@ -12,6 +12,8 @@ import Store from "./comp/Store";
 import Checkout from "./comp/Checkout";
 import Success from "./comp/Success";
 import OrderHistory from "./comp/OrderHistory";
+import Doctorsignin from "./comp/Doctorsignin";
+import Docappointment from "./comp/Docappointment";
 
 export default function App() {
   return (
@@ -20,7 +22,8 @@ export default function App() {
   <Routes>
     <Route path="/" element={<Index />} />
     <Route path="/sign" element={<Sign />} />
-  
+    <Route path="/docsign" element={<Doctorsignin />} />
+    <Route path="/docapp" element={<Docappointment />} />
     <Route element={<PrivateRoutes />} >
         {/* Add new routes here so that user can only access them once he is logged in and nice nice */}
     <Route path="/home" element={<Home />} />

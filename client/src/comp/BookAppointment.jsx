@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../css/bookappointment.css";
 import doctorImage from "../assets/pexels-karolina-grabowska-4046950.jpg";
 import doctorImage2 from "../assets/pexels-karolina-grabowska-4386467.jpg";
@@ -15,6 +15,7 @@ const BookAppointment = () => {
     name: "",
     email: "",
     phone: "",
+    status:"upcoming"
   });
 
   const [errors, setErrors] = useState({});
