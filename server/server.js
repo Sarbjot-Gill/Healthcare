@@ -288,8 +288,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Replace with your email and password (Use App Password for Gmail if 2FA enabled)
-const EMAIL_USER = "farziid1009@gmail.com";
-const EMAIL_PASS = "wsgs lfqd bure kjny"; // Use App Password here
+const EMAIL_USER = "";
+const EMAIL_PASS = ""; // Use App Password here
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
