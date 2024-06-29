@@ -18,7 +18,7 @@ export default function Signin() {
         alert("user don't exist")
       }else if(dataa === "success"){
        navigate("/store")
-      }else if(data === "pass not same"){
+      }else if(dataa === "pass not same"){
         alert("pass not same")
       }
     }))

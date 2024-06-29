@@ -123,7 +123,7 @@ export default function Checkout() {
             <input
               className="form-control my-3"
               type="text"
-              placeholder="Appartment"
+              placeholder="Apartment"
               name="house"
               onChange={handleChange}
               required

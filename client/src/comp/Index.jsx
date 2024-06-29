@@ -100,8 +100,8 @@ export default function Index() {
             behavior="scroll"
             direction="up"
           >
-            Medicene <br></br>
-            Diease <br></br> Appoinments <br></br> Hospitals
+            Medicine <br></br>
+            Disease <br></br> Appointments <br></br> Hospitals
           </marquee>
         </div>
       </div>

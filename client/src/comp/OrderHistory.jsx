@@ -14,7 +14,7 @@ export default function OrderHistory() {
     <Navbarr />
     {!data ? <><h1>none</h1></> :<>
     <center>
-    <h1 style={{marginTop:"40px"}}>Appointment History</h1></center>
+    <h1 style={{marginTop:"40px"}}>Order History</h1></center>
     <div style={{display:"flex" , justifyContent:"center" ,alignItems:"center"}}>
       <div>
         <Table bordered hover striped="columns"  responsive="xl">

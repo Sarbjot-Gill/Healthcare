@@ -174,7 +174,7 @@ export default function Medicines() {
           <li>Drink plenty of fluids to stay hydrated.</li>
           <li>Avoid consumption of alcohol.</li>
         </ul>
-        <h5 style={{ marginTop: "30px" }}>Special Advise</h5>
+        <h5 style={{ marginTop: "30px" }}>Special Advice</h5>
         <p style={{marginBottom:"50px"}}>You are recommended to maintain a time gap of a minimum of 2 hours between taking Folvite Tablet and indigestion remedies such as antacids containing magnesium or aluminum and edible clay.</p>
 
       </div>
